@@ -12,6 +12,7 @@ function showHiddenMenuLinks() {
         $('#linkListAds').hide()
         $('#linkCreateAd').hide()
         $('#linkLogout').hide()
+        $('#loggedInUser').empty()
 
     } else {
         $('#linkLogin').hide()
@@ -19,6 +20,7 @@ function showHiddenMenuLinks() {
         $('#linkListAds').show()
         $('#linkCreateAd').show()
         $('#linkLogout').show()
+        $('#loggedInUser').text('Hello, ' + sessionStorage.getItem('username')).show()
     }
 
 }
@@ -29,10 +31,16 @@ function attachAllEvents() {
     $("#linkRegister").on('click', showRegisterView)
     $("#linkListAds").on('click', showAdsView)
     $("#linkCreateAd").on('click', showCreateAddView)
-    $("#linkLogout").on('click', showLogoutView)
+    $("#linkLogout").on('click', logoutUser)
 
     $("#buttonRegisterUser").on('click', registerUser)
     $("#buttonLoginUser").on('click', loginUser)
+    $("#buttonCreateAd").on('click', createAdd)
+
+
+    $("#infoBox, #errorBox").on('click', function () {
+        $(this).fadeOut();
+    })
 }
 
 function showHomeView() {
@@ -57,10 +65,21 @@ function showAdsView() {
 
 function showCreateAddView() {
     $('main').find('section').hide()
-    $('#viewHome').show()
+    $('#viewCreateAd').show()
 }
 
-function showLogoutView() {
-    $('main').find('section').hide()
-    $('#viewHome').show()
+
+function showInfo(message) {
+    let infoBox = $('#infoBox');
+    infoBox.text(message);
+    infoBox.show();
+    setTimeout(function () {
+        $('#infoBox').fadeOut();
+    }, 3000);
+}
+
+function showError(errorMsg) {
+    let errorBox = $('#errorBox');
+    errorBox.text("Error: " + errorMsg);
+    errorBox.show();
 }
