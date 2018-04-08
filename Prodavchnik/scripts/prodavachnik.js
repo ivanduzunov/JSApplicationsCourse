@@ -6,7 +6,7 @@ function startApp() {
 
 function showHiddenMenuLinks() {
     $('#linkHome').show()
-    if (sessionStorage.getItem('authToken') === null) {
+    if (sessionStorage.getItem('authtoken') === null) {
         $('#linkLogin').show()
         $('#linkRegister').show()
         $('#linkListAds').hide()
@@ -24,12 +24,15 @@ function showHiddenMenuLinks() {
 }
 
 function attachAllEvents() {
-    $("#linkHome").on('click', showHomeView);
-    $("#linkLogin").on('click', showLoginView);
-    $("#linkRegister").on('click', showRegisterView);
-    $("#linkListAds").on('click', showAdsView);
-    $("#linkCreateAd").on('click', showCreateAddView);
-    $("#linkLogout").on('click', showLogoutView);
+    $("#linkHome").on('click', showHomeView)
+    $("#linkLogin").on('click', showLoginView)
+    $("#linkRegister").on('click', showRegisterView)
+    $("#linkListAds").on('click', showAdsView)
+    $("#linkCreateAd").on('click', showCreateAddView)
+    $("#linkLogout").on('click', showLogoutView)
+
+    $("#buttonRegisterUser").on('click', registerUser)
+    $("#buttonLoginUser").on('click', loginUser)
 }
 
 function showHomeView() {
