@@ -60,13 +60,14 @@ function showRegisterView() {
 
 function showAdsView() {
     $('main').find('section').hide()
-    $('#viewHome').show()
+    $('#viewAds').show()
 }
 
 function showCreateAddView() {
     $('main').find('section').hide()
     $('#viewCreateAd').show()
 }
+
 
 
 function showInfo(message) {

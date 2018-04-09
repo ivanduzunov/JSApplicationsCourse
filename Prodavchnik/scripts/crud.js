@@ -54,7 +54,7 @@ function loginUser() {
         error: loginError
     })
 
-    function loginSuccess(data, message) {
+    function loginSuccess(data) {
         console.log(data)
         sessionStorage.setItem('username', data.username)
         sessionStorage.setItem('id', data._id)
@@ -92,17 +92,26 @@ function createAdd() {
 
     let addData = {title, description, dateOfPublishing, price, publisher}
     console.log(addData)
-    request('POST', baseUrl + `/appdata/${appKey}/adverts/`, "Kinvey " + sessionStorage.getItem('authtoken'), addData)
-        .then(res => {
-            console.log(data)
-            createAddForm.find('input[name=title]').val('')
-            createAddForm.find('textarea[name=description]').val('')
-            createAddForm.find('input[name=datePublished]').val('')
-            createAddForm.find('input[name=price]').val('')
-            showInfo("Publishing add successfull.")
-            showHomeView()
-        })
-        .catch(addAddError);
+    console.log(typeof "Kinvey " + sessionStorage.getItem('authtoken'))
+    $.ajax({
+        method: 'POST',
+        url: baseUrl + `/appdata/${appKey}/adverts`,
+        headers: {Authorization: "Kinvey " + sessionStorage.getItem('authtoken')},
+        contentType: 'application/json',
+        data: JSON.stringify(addData),
+        success: addAddSuccess,
+        error: addAddError
+    })
+
+    function addAddSuccess(res) {
+        createAddForm.find('input[name=title]').val('')
+        createAddForm.find('textarea[name=description]').val('')
+        createAddForm.find('input[name=datePublished]').val('')
+        createAddForm.find('input[name=price]').val('')
+        showInfo("Publishing add successfull.")
+        showHomeView()
+    }
+
 
     function addAddError(data) {
         console.log(data)
@@ -110,13 +119,4 @@ function createAdd() {
     }
 }
 
-function request(method, endpoint, auth, body) {
-    // Construct request, using the passed in parameters and return promise
-    return $.ajax({
-        method: method,
-        url: endpoint,
-        headers: auth,
-        contentType: 'application/json',
-        data: JSON.stringify(body)
-    });
-}
+
