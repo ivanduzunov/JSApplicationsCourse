@@ -7,21 +7,24 @@ function showHideMenuLinks() {
 }
 
 function showView(id) {
+    console.log('show view method')
     $('section').hide()
     $('#' + id).show()
 }
 
 function showRegisterView() {
+    console.log('showing register view')
     showView('viewRegister')
 }
 
 function showLoginView() {
+    console.log('showing login view')
     showView('viewLogin')
 }
 
-//function showHomeView() {
-// showView('viewRegister')
-//}
+function showHomeView() {
+    showView('viewFeed')
+}
 
 function showDiscoverView() {
     showView('viewDiscover')
@@ -32,8 +35,9 @@ function showMeView() {
 }
 
 function showInfo(message) {
+    console.log('showing info')
     let infoBox = $('#infoBox');
-    infoBox.text(message);
+    infoBox.find('span').text(message);
     infoBox.show();
     setTimeout(function () {
         $('#infoBox').fadeOut();
@@ -41,11 +45,11 @@ function showInfo(message) {
 }
 
 function showError(errorMsg) {
-    let errorBox = $('#errorBox');
-    errorBox.text("Error: " + errorMsg);
+    console.log('showing error')
+    let errorBox = $('#errorBox')
+    errorBox.find('span').text("Error: " + errorMsg)
     errorBox.show()
-}
-
-function hideError() {
-    $('#errorBox').hide()
+    setTimeout(function () {
+        errorBox.fadeOut()
+    }, 5000)
 }

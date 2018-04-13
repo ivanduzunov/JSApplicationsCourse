@@ -4,7 +4,7 @@ function attachEvents() {
     linkContains("Home").on('click', showHomeView)
     linkContains("Discover").on('click', showDiscoverView)
     linkContains("Me").on('click', showMeView)
-    linkContains("Logout").on('click', showRegisterView)
+    //linkContains("Logout").on('click', showRegisterView)
 
     $('#btnRegister').on('click', registerUser)
 
@@ -16,10 +16,8 @@ function attachEvents() {
             $('#loadingBox').hide()
         }
     })
-
-    $('#errorBox').on('click', hideError)
 }
 
 function linkContains(text) {
-    return $('a:contains(text)')
+    return $(`a:contains(${text})`)
 }
