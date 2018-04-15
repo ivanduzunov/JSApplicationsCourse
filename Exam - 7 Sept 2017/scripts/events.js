@@ -1,12 +1,13 @@
-function attachEvents() {
-    linkContains("Register").on('click', showRegisterView)
-    linkContains("Logout").on('click', showLoginView)
-    linkContains("Home").on('click', showHomeView)
-    linkContains("Discover").on('click', showDiscoverView)
-    linkContains("Me").on('click', showMeView)
-    //linkContains("Logout").on('click', showRegisterView)
+function attachAllEvents() {
+    $(`a:contains('Register')`).on('click',showRegisterView )
+    $(`a:contains('Log in')`).on('click', showLoginView)
+    $(`a:contains('Home')`).on('click', showHomeView)
 
     $('#btnRegister').on('click', registerUser)
+    $('#btnLogin').on('click', loginUser);
+    $("button").on('click', function (event) {
+        event.preventDefault();
+    });
 
     $(document).on({
         ajaxStart: function () {
@@ -16,8 +17,4 @@ function attachEvents() {
             $('#loadingBox').hide()
         }
     })
-}
-
-function linkContains(text) {
-    return $(`a:contains(${text})`)
 }

@@ -1,5 +1,5 @@
 function startApp() {
     showHideMenuLinks();
-    showLoginView();
-    attachEvents();
+    showView('viewLogin');
+    attachAllEvents();
 }

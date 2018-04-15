@@ -1,0 +1,9 @@
+<h1>Contacts</h1>
+{{#each contacts}}
+<div class="content">
+    <div class="contact" data-id="{{@index}}">
+        <span class="avatar small">&#9787;</span>
+        <span class="title">{{firstName}} {{lastName}}</span>
+    </div>
+</div>
+{{/each}}
