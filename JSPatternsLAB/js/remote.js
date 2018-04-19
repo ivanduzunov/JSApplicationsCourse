@@ -13,7 +13,7 @@ let remote = (() => {
 
     function makeRequest(method, module, endpoint, auth) {
         return {
-            url: `${BASE_URL + module}/${APP_KEY}/${endpoint}`,
+            url: BASE_URL + module + '/' + APP_KEY + '/' + endpoint,
             method: method,
             headers: {
                 Authorization: makeAuth(auth)

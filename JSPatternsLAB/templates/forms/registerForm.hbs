@@ -1,16 +1,17 @@
 <section id="register">
     <div class="container centered">
         {{> header}}
+        {{> navigation}}
         <div class="box">
             <h1>Register</h1>
             <div class="content">
-                <form id="register-form">
+                <form action="#/register" method="POST" id="register-form">
                     <label for="newUsername">Username</label>
-                    <input id="newUsername" type="text">
+                    <input name="username" id="newUsername" type="text">
                     <label for="newPassword">Password</label>
-                    <input id="newPassword" type="password">
+                    <input name="pass" id="newPassword" type="password">
                     <label for="newPassRep">Repeat Password</label>
-                    <input id="newPassRep" type="password">
+                    <input name="repeatPass" id="newPassRep" type="password">
                     <input type="submit" value="Register">
                 </form>
             </div>

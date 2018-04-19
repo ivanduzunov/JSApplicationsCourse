@@ -19,9 +19,7 @@ let auth = (() => {
 
     function login(username, password) {
         let obj = {username, password};
-        remote.post('user', 'login', 'basic', obj)
-            .then(saveSession)
-            .catch(console.error);
+        return remote.post('user', 'login', 'basic', obj);
     }
 
     function logout() {
@@ -36,6 +34,7 @@ let auth = (() => {
         isAuth,
         login,
         logout,
-        register
+        register,
+        saveSession
     }
 })();
