@@ -1,19 +1,10 @@
+const handlers = {};
+
 $(() => {
     const app = Sammy('#main', function () {
         this.use('Handlebars', 'hbs');
 
-        this.get('#/index.html', (ctx) => {
-            ctx.isAuth = auth.isAuth();
-            ctx.loadPartials({
-                header: './templates/common/header.hbs',
-                footer: './templates/common/footer.hbs',
-                contactPage: './templates/contacts/contactPage.hbs',
-                loginForm: './templates/forms/loginForm.hbs',
-                navigation: './templates/common/navigation.hbs'
-            }).then(function () {
-                this.partial('./templates/welcome.hbs')
-            });
-        });
+        this.get('#/index.html', handlers.homeHandler);
 
         this.get('#/register', (ctx) => {
             ctx.loadPartials({
