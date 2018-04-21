@@ -43,7 +43,7 @@ let teamsService = (() => {
             teamId: ''
         };
 
-       return requester.update('user', sessionStorage.getItem('userId'), userData, 'kinvey');
+        return requester.update('user', sessionStorage.getItem('userId'), userData, 'kinvey');
     }
 
 

@@ -4,7 +4,11 @@ $(() => {
 
         this.get('#/index.html', (ctx) => {
             //Todo: show the username, when the user is loggedIn
-            ctx.loggedIn = sessionStorage.getItem('authtoken') !== null;
+            let isLogged = sessionStorage.getItem('authtoken') !== null;
+            ctx.loggedIn = isLogged;
+            if (isLogged) {
+                ctx.username = sessionStorage.getItem('username');
+            }
             ctx.loadPartials({
                 header: './templates/common/header.hbs',
                 footer: './templates/common/footer.hbs'
@@ -56,6 +60,21 @@ $(() => {
                     auth.saveSession(userData);
                     ctx.redirect('#/index.html');
                 }).catch(console.error);
+        });
+
+        this.get('#/catalog', (ctx) => {
+            teamsService.loadTeams().then((userData) => {
+                ctx.teams = userData;
+                console.log(ctx.teams)
+                ctx.loadPartials({
+                    header: './templates/common/header.hbs',
+                    footer: './templates/common/footer.hbs',
+                    team: './templates/catalog/team.hbs'
+
+                }).then(function () {
+                    this.partial('./templates/catalog/teamCatalog.hbs');
+                });
+            });
         });
 
     });
