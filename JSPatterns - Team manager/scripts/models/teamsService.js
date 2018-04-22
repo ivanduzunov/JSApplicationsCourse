@@ -8,6 +8,11 @@ let teamsService = (() => {
         return requester.get('appdata', 'teams/' + teamId, 'kinvey');
     }
 
+    function loadTeamMembers(teamId) {
+        let query = `?query={"teamId":"${teamId}"}`;
+        return requester.get('user', query, 'kinvey');
+    }
+
     function edit(teamId, name, description) {
         let teamData = {
             name: name,
@@ -50,6 +55,7 @@ let teamsService = (() => {
     return {
         loadTeams,
         loadTeamDetails,
+        loadTeamMembers,
         edit,
         createTeam,
         joinTeam,
