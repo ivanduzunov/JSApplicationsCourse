@@ -31,11 +31,12 @@ let auth = (() => {
 
     // user/logout
     function logout() {
-        let logoutData = {
-            authtoken: sessionStorage.getItem('authtoken')
-        };
+        //let logoutData = {
+           // authtoken: sessionStorage.getItem('authtoken')
+        //};
 
-        return requester.post('user', '_logout', 'kinvey', logoutData);
+        //return requester.post('user', '_logout', 'kinvey', logoutData);
+        sessionStorage.clear();
     }
 
     function handleError(reason) {
