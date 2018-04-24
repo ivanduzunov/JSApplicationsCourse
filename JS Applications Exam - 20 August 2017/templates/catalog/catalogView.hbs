@@ -1,7 +1,12 @@
-<section id="viewCatalog">
-    <div class="posts">
-        {{#each postArticles}}
-            {{postArticle}}
-        {{/each}}
-    </div>
-</section>
+{{> header}}
+{{> navMenu}}
+<div class="content">
+    <section id="viewCatalog">
+        <div class="posts">
+            {{#each postArticles}}
+                {{postArticle}}
+            {{/each}}
+        </div>
+    </section>
+</div>
+{{> footer}}
