@@ -1,10 +1,12 @@
 {{> header}}
-{{> navMenu}}
 <div class="content">
+    {{> navMenu}}
     <section id="viewCatalog">
         <div class="posts">
-            {{#each postArticles}}
-                {{postArticle}}
+            {{#each articles}}
+                {{> postArticle}}
+            {{else}}
+                <p>No posts in database.</p>
             {{/each}}
         </div>
     </section>

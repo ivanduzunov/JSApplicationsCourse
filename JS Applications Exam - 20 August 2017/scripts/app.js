@@ -35,7 +35,7 @@ $(() => {
                 auth.register(username, password)
                     .then(() => {
                         auth.showInfo(`${username} registered successfully!`)
-                        //ctx.redirect('#/catalog');
+                        ctx.redirect('#/catalog');
                     });
             }
         });
@@ -47,14 +47,70 @@ $(() => {
             auth.login(username, password)
                 .then((userData) => {
                     auth.saveSession(userData);
-                    //ctx.redirect('#/catalog');
+                    ctx.redirect('#/catalog');
                     auth.showInfo(`${userData.username} logged in successfully!`);
                 }).catch(() => {
                 auth.showError(`Logged in failed.`);
             });
         });
 
+        this.get('#/catalog', (ctx) => {
+            ctx.loggedIn = sessionStorage.getItem('authtoken') !== null;
+            ctx.username = sessionStorage.getItem('username');
 
+            postsService.getAllPostsSortedByPostTimeDescending()
+                .then((data) => {
+                    data.forEach((p, i) => {
+                        p.rank = i + 1;
+                        p.days = postsService.calcTime(p._kmd.ect);
+                        p.isAuthor = p._acl.creator === sessionStorage.getItem('userId');
+                    });
+                    ctx.articles = data;
+                    console.log(ctx.articles)
+                    ctx.loadPartials({
+                        header: './templates/common/header.hbs',
+                        footer: './templates/common/footer.hbs',
+                        navMenu: './templates/common/navMenu.hbs',
+                        postArticle: './templates/catalog/postArticle.hbs'
+
+                    }).then(function () {
+                        this.partial('./templates/catalog/catalogView.hbs');
+                    });
+                });
+
+        });
+
+        this.get('#/submit', (ctx) => {
+            ctx.username = sessionStorage.getItem('username');
+            ctx.loggedIn = sessionStorage.getItem('authtoken') !== null;
+
+            ctx.loadPartials({
+                header: './templates/common/header.hbs',
+                footer: './templates/common/footer.hbs',
+                navMenu: './templates/common/navMenu.hbs'
+            }).then(function () {
+                this.partial('./templates/submit/submitForm.hbs');
+            });
+        });
+
+        this.post('#/submit', (ctx) => {
+            let url = ctx.params.url;
+            let title = ctx.params.title;
+            let imageUrl = ctx.params.image;
+            let description = ctx.params.comment;
+
+            if (url === '' || title === '') {
+                auth.showError('Url and title fields are mandatory.')
+            } else {
+                postsService.createPost(url, title, imageUrl, description)
+                    .then(() => {
+                        auth.showInfo(`${title} link published.`);
+                        ctx.redirect('#/catalog');
+                    }).catch(() => {
+                    auth.showError('Published failed.');
+                });
+            }
+        });
     });
     app.run();
 });

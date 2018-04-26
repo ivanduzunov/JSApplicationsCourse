@@ -1,6 +1,6 @@
 <article class="post">
     <div class="col rank">
-        <span>{{number}}</span>
+        <span>{{rank}}</span>
     </div>
     <div class="col thumbnail">
         <a href="{{url}}">
@@ -15,13 +15,15 @@
         </div>
         <div class="details">
             <div class="info">
-                {{description}}
+                submitted {{days}} ago by {{author}}
             </div>
             <div class="controls">
                 <ul>
-                    <li class="action"><a class="commentsLink" href="#">comments</a></li>
-                    <li class="action"><a class="editLink" href="#">edit</a></li>
-                    <li class="action"><a class="deleteLink" href="#">delete</a></li>
+                    <li class="action"><a class="commentsLink" href="#/details/{{_id}}">details</a></li>
+                    {{#if isAuthor}}
+                        <li class="action"><a class="editLink" href="#/edit/post/{{_id}}">edit</a></li>
+                        <li class="action"><a class="deleteLink" href="#/delete/post/{{_id}}">delete</a></li>
+                    {{/if}}
                 </ul>
             </div>
         </div>

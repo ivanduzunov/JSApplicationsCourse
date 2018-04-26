@@ -1,13 +1,13 @@
 {{> header}}
-{{> navMenu}}
 <div class="content">
+    {{> navMenu}}
     <section id="viewSubmit">
         <div class="submitArea">
             <h1>Submit Link</h1>
             <p>Please, fill out the form. A thumbnail image is not required.</p>
         </div>
         <div class="submitArea formContainer">
-            <form id="submitForm" class="submitForm">
+            <form id="submitForm" class="submitForm" action="#/submit" method="post">
                 <label>Link URL:</label>
                 <input name="url" value="" type="text">
                 <label>Link Title:</label>
