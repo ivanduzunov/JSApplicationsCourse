@@ -13,13 +13,13 @@
         <div class="details">
             <p>{{description}}</p>
             <div class="info">
-                submitted 5 days ago by {{author}}
+                submitted  {{days}} ago by {{postAuthor}}
             </div>
             <div class="controls">
                 <ul>
                     {{#if isAuthor}}
-                        <li class="action"><a class="editLink" href="#/edit/post/{{_id}}">edit</a></li>
-                        <li class="action"><a class="deleteLink" href="#/delete/post/{{_id}}">delete</a></li>
+                        <li class="action"><a class="editLink" href="#/edit/post/:{{_id}}">edit</a></li>
+                        <li class="action"><a class="deleteLink" href="#/delete/post/:{{_id}}">delete</a></li>
                     {{/if}}
                 </ul>
             </div>

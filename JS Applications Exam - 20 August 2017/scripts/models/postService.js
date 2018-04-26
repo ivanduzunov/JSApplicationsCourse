@@ -20,7 +20,6 @@ let postsService = (() => {
         }
     }
 
-
     function getAllPostsSortedByPostTimeDescending() {
         return requester.get('appdata', 'posts?query={}&sort={"_kmd.ect": -1}', 'kinvey');
     }
@@ -37,10 +36,48 @@ let postsService = (() => {
         return requester.post('appdata', 'posts', 'kinvey', data)
     }
 
+    function getPostById(id) {
+        return requester.get('appdata', 'posts/' + id, 'kinvey')
+    }
+
+    function editPost(url, title, imageUrl, description, id) {
+        let data = {
+            url,
+            title,
+            imageUrl,
+            description
+        };
+
+        return requester.update('appdata', 'posts/' + id, 'kinvey', data);
+    }
+
+    function getCommentsByPostId(id) {
+        return requester.get('appdata', `comments?query={"postId":"${id}"}&sort={"_kmd.ect": -1}`, 'kinvey')
+    }
+
+    function createComment(postId, content, author) {
+        let data = {
+            postId,
+            content,
+            author
+        };
+
+        return requester.post('appdata', 'comments', 'kinvey', data)
+    }
+
+    function deletePost(id) {
+        return requester.remove('appdata', 'posts/' + id, 'kinvey')
+    }
+
     return {
         calcTime,
         getAllPostsSortedByPostTimeDescending,
-        createPost
+        createPost,
+        getPostById,
+        editPost,
+        getCommentsByPostId,
+        createComment,
+        deletePost
     }
 
 

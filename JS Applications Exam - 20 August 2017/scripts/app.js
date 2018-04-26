@@ -111,6 +111,119 @@ $(() => {
                 });
             }
         });
+
+        this.get('#/edit/post/:_id', (ctx) => {
+            ctx.username = sessionStorage.getItem('username');
+            ctx.loggedIn = sessionStorage.getItem('authtoken') !== null;
+            let id = ctx.params._id.slice(1);
+
+            postsService.getPostById(id)
+                .then((data) => {
+                    ctx._id = id;
+                    ctx.url = data.url;
+                    ctx.title = data.title;
+                    ctx.imageUrl = data.imageUrl;
+                    ctx.description = data.description;
+
+                    ctx.loadPartials({
+                        header: './templates/common/header.hbs',
+                        footer: './templates/common/footer.hbs',
+                        navMenu: './templates/common/navMenu.hbs'
+                    }).then(function () {
+                        this.partial('./templates/edit/editView.hbs');
+                    });
+                })
+        });
+
+        this.post('#/edit/post/:_id', (ctx) => {
+            let id = ctx.params._id.slice(1);
+            console.log(id)
+            let url = ctx.params.url;
+            let title = ctx.params.title;
+            let imageUrl = ctx.params.image;
+            let description = ctx.params.description;
+
+            if (url === '' || title === '') {
+                auth.showError('Url and title fields are mandatory.')
+            } else {
+                postsService.editPost(url, title, imageUrl, description, id)
+                    .then(() => {
+                        auth.showInfo(`${title} link edited.`);
+                        ctx.redirect('#/catalog');
+                    }).catch(() => {
+                    auth.showError('Edited failed.');
+                });
+            }
+        });
+
+        this.get('#/details/:_id', (ctx) => {
+            ctx.username = sessionStorage.getItem('username');
+            ctx.loggedIn = sessionStorage.getItem('authtoken') !== null;
+            let id = ctx.params._id.slice(1);
+
+            postsService.getPostById(id)
+                .then((data) => {
+                    ctx.url = data.url;
+                    ctx.title = data.title;
+                    ctx.imageUrl = data.imageUrl;
+                    ctx.description = data.description;
+                    ctx.postAuthor = data.author;
+                    ctx.isAuthor = data._acl.creator === sessionStorage.getItem('userId');
+                    ctx.days = postsService.calcTime(data._kmd.ect);
+                    ctx.postId = id;
+
+                    postsService.getCommentsByPostId(id)
+                        .then((commentsData) => {
+                            commentsData.forEach((p, i) => {
+                                p.time = postsService.calcTime(p._kmd.ect);
+                            });
+
+                            ctx.comments = commentsData;
+
+                            ctx.loadPartials({
+                                header: './templates/common/header.hbs',
+                                footer: './templates/common/footer.hbs',
+                                navMenu: './templates/common/navMenu.hbs',
+                                postArticleWithCommentsView: './templates/details/postArticleWithCommentsView.hbs',
+                                commentForm: './templates/details/commentForm.hbs',
+                                comment: './templates/details/comment.hbs'
+                            }).then(function () {
+                                this.partial('./templates/details/commentsView.hbs');
+                            });
+                        });
+                });
+        });
+
+        this.post('#/addComment/:postId', (ctx) => {
+            let postId = ctx.params.postId.slice(1);
+            let author = sessionStorage.getItem('username')
+            let content = ctx.params.content;
+
+            if (content === '') {
+                auth.showError('Cannot publish empty comment.')
+            } else {
+                postsService.createComment(postId, content, author)
+                    .then(() => {
+                        auth.showInfo(`Comment published.`);
+                        ctx.redirect(`#/details/:${postId}`);
+                    }).catch(() => {
+                    auth.showError('Published failed.');
+                });
+            }
+        });
+
+        this.get('#/delete/post/:_id', (ctx) => {
+            let id = ctx.params._id.slice(1);
+
+            postsService.deletePost(id)
+                .then(() => {
+                    auth.showInfo('DELETED!');
+                    ctx.redirect(`#/catalog`)
+                }).catch(() => {
+                auth.showError('NOT DELETED');
+            })
+        });
+
     });
     app.run();
 });
