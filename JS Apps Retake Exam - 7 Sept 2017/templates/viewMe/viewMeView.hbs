@@ -1,0 +1,17 @@
+{{> header}}
+{{> menu}}
+<section id="viewMe">
+    <div class="content">
+        <div class="chirper">
+
+            <h2 class="titlebar">Pesho</h2>
+            {{> viewMeStatsView}}
+            {{> chirperMyForm}}
+        </div>
+        <div id="myChirps" class="chirps">
+            <h2 class="titlebar">Chirps</h2>
+            <div class="chirp"><span class="loading">No chirps in database</span></div>
+        </div>
+    </div>
+</section>
+{{> footer}}
