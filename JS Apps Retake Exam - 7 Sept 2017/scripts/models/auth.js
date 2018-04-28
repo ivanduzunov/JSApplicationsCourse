@@ -22,8 +22,9 @@ let auth = (() => {
 
     function register(username, password) {
         let userData = {
-            username,
-            password
+            username: username,
+            password: password,
+            subscriptions: []
         };
 
         return requester.post('user', '', 'basic', userData);
@@ -56,7 +57,6 @@ let auth = (() => {
         errorBox.show();
         setTimeout(() => errorBox.fadeOut(), 3000);
     }
-
 
 
     return {
