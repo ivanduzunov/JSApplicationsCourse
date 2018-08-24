@@ -1,19 +1,11 @@
+const handlers = {};
+
 $(() => {
-    const app = Sammy('#main', function () {
+    const app = Sammy('#container', function () {
         this.use('Handlebars', 'hbs');
 
-        this.get('#/index.html', (ctx) => {
-            ctx.loggedIn = sessionStorage.getItem('authtoken') !== null
-            ctx.loadPartials({
-                header: './templates/common/header.hbs',
-                footer: './templates/common/footer.hbs',
-                registerForm: './templates/welcome/registerForm.hbs',
-                loginForm: './templates/welcome/loginForm.hbs'
-            })
-                .then(function () {
-                    this.partial('./templates/welcome/welcomeView.hbs');
-                });
-        });
+        this.get('index.html', handlers.getWelcomePage);
+        this.get('#/home', handlers.getWelcomePage);
 
         this.post('#/register', (ctx) => {
             let username = ctx.params.username;
@@ -52,7 +44,6 @@ $(() => {
                 auth.showError(`Logged in failed.`);
             });
         });
-
 
     });
     app.run();
