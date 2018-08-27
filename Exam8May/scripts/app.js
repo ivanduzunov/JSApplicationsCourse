@@ -1,14 +1,21 @@
 const handlers = {};
+
 $(() => {
     // Define routes here using Sammy.js
     const app = Sammy('#container', function () {
         this.use('Handlebars', 'hbs');
 
-        this.get('index.html', handlers.getWelcomePage);
-        this.get('#/home', handlers.getWelcomePage);
+        this.get('index.html', handlers.getLoginPage); //loginPage will be shown at first
 
-        /*  this.post('#/register', handlers.registerUser);
-          this.post('#/login', handlers.loginUser);
+        this.get('#/login', handlers.getLoginPage);// loginPage
+        this.post('#/login', handlers.loginUser);
+        this.get('#/register', handlers.getRegisterPage);//registerPage
+        this.post('#/register', handlers.registerUser);
+
+        this.get('#/home', handlers.getHomePage);//homePage with listing of active flights
+
+
+        /* 
           this.get('#/logout', handlers.logout);
 
           this.get('#/editor', handlers.getEditor);

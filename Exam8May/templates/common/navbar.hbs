@@ -1,12 +1,12 @@
 <nav>
     <div class="left-container">
         <ul>
-            <li><a href="">Home</a></li>
+            <li><a href="#/home">Home</a></li>
             {{#if isAuthorized}}
                 <li><a href="">Flights</a></li>
             {{else}}
-                <li><a href="">Login</a></li>
-                <li><a href="">Register</a></li>
+                <li><a href="#/login">Login</a></li>
+                <li><a href="#/register">Register</a></li>
             {{/if}}
         </ul>
     </div>
