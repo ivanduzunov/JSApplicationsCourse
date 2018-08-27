@@ -13,12 +13,14 @@
     <script src="node_modules/handlebars/dist/handlebars.min.js"></script>
     <script src="node_modules/sammy/lib/min/sammy-0.7.6.min.js"></script>
     <script src="node_modules/sammy/lib/min/plugins/sammy.handlebars-0.7.6.min.js"></script>
-    <script src="scripts/requester.js"></script>
+    <script src="scripts/remote.js"></script>
     <script src="scripts/notify.js"></script>
     <script src="scripts/services/authService.js"></script>
-    <script src="scripts/app.js"></script>
+    <script src="scripts/services/entriesService.js"></script>
+    <script src="scripts/services/receiptService.js"></script>
     <script src="scripts/handlers/authHandler.js"></script>
-
+    <script src="scripts/handlers/receiptHandler.js"></script>
+    <script src="scripts/app.js"></script>
 </head>
 
 <body>
@@ -30,7 +32,7 @@
 
 <div id="notifications">
     <div id="loadingBox" class="notification">
-        <span>Loading …</span>
+        <span>Please wait…</span>
     </div>
     <div id="infoBox" class="notification">
         <span>Info</span>

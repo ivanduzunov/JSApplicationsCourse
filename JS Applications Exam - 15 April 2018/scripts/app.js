@@ -1,50 +1,25 @@
 const handlers = {};
 
 $(() => {
+    // Define routes here using Sammy.js
     const app = Sammy('#container', function () {
         this.use('Handlebars', 'hbs');
 
         this.get('index.html', handlers.getWelcomePage);
         this.get('#/home', handlers.getWelcomePage);
 
-        this.post('#/register', (ctx) => {
-            let username = ctx.params.username;
-            let password = ctx.params.password;
-            let repeatPass = ctx.params.repeatPass;
+        this.post('#/register', handlers.registerUser);
+        this.post('#/login', handlers.loginUser);
+        this.get('#/logout', handlers.logout);
 
-            if (username.length < 3 || /^[a-zA-Z]+$/.test(username) !== true) {
-                auth.showError('Username should be with minimum 3 chars and containing only English letters.');
-            }
+        this.get('#/editor', handlers.getEditor);
+        this.post('#/entry/create', handlers.createEntry);
+        this.post('#/entry/delete', handlers.deleteEntry);
+        this.post('#/checkout', handlers.checkout);
 
-            if (password !== repeatPass) {
-                auth.showError('Passwords have to match!');
-            }
-
-            if (password.length < 6 || /^[a-zA-Z0-9]+$/.test(username) !== true) {
-                auth.showError('Password should be with minimum 6 chars and containing only English letters and digits.');
-            } else {
-                auth.register(username, password)
-                    .then(() => {
-                        auth.showInfo(`${username} registered successfully!`)
-                        ctx.redirect('#/catalog');
-                    });
-            }
-        });
-
-        this.post('#/login', (ctx) => {
-            let username = ctx.params.username;
-            let password = ctx.params.password;
-
-            auth.login(username, password)
-                .then((userData) => {
-                    auth.saveSession(userData);
-                    ctx.redirect('#/catalog');
-                    auth.showInfo(`${userData.username} logged in successfully!`);
-                }).catch(() => {
-                auth.showError(`Logged in failed.`);
-            });
-        });
-
+        this.get('#/overview', handlers.getMyReceipts);
+        this.get('#/receipt/details/:id', handlers.getReceiptDetails);
     });
+
     app.run();
 });

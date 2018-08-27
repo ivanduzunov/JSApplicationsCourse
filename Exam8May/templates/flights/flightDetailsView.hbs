@@ -1,0 +1,21 @@
+{{> navbar}}
+<section id="viewFlightDetails">
+    <div class="ticket-area">
+        <div class="ticket-area-left">
+            <img src="{{image}}" alt="image">
+        </div>
+        <div class="ticket-area-right">
+            <h3>{{destination}}</h3>
+            <div>from {{origin}}</div>
+            <div class="data-and-time">
+                {{departureDate}} {{departureTime}}
+                <a href="" class="edit-flight-detail"></a>
+            </div>
+            <div>
+                {{seats}} Seats ({{cost}} per seat)
+            </div>
+        </div>
+    </div>
+</section>
+
+{{> footer}}
