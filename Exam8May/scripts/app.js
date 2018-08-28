@@ -13,6 +13,13 @@ $(() => {
         this.post('#/register', handlers.registerUser);
 
         this.get('#/home', handlers.getHomePage);//homePage with listing of active flights
+        this.get('#/flights/add', handlers.getFlightAddPage);//get flights add page
+        this.post('#/flights/add', handlers.AddFlight);//post addFlight
+
+        this.get('#/flights/:id', handlers.getFlightDetailsPage);//get flights add page
+
+        this.get('#/flights/edit/:id', handlers.getFlightEditPage);//get flights edit page
+        this.post('#/flights/edit', handlers.editFlight);//post flights edit
 
 
         /* 
