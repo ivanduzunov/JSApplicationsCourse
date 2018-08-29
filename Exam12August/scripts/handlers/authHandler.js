@@ -71,19 +71,11 @@ handlers.registerUser = function (ctx) {
     }
 };
 
-
-
-/*
-
-
-
-
-
-handlers.logout = function (ctx) {
-    auth.logout()
+handlers.logoutUser = function (ctx) {
+    authService.logout()
         .then(() => {
             sessionStorage.clear();
             notify.showInfo('Logout successful.');
-            ctx.redirect('#/home');
+            ctx.redirect('#/welcome');
         })
-};*/
+};

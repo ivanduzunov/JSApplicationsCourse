@@ -45,7 +45,7 @@ handlers.createListing = function (ctx) {
         notify.showError('Invalid description!');
     } else if (brand.length === 0 || fuelType.length === 0 || model.length === 0) {
         notify.showError('Invalid brand, model or fuel type!');
-    }  else {
+    } else {
         carService.createListing
         (title, description, brand, model,
             year, imageUrl, fuelType, price, seller)
@@ -81,4 +81,72 @@ handlers.getListingDetailsPage = function (ctx) {
             })
         });
 }
+
+handlers.getEditListingPage = function (ctx) {
+    ctx.isAuth = authService.isAuth;
+    ctx.username = sessionStorage.getItem('username');
+
+    carService.getListingById(ctx.params._id)
+        .then((data) => {
+            let listing = {
+                seller: data.seller,
+                title: data.title,
+                imageUrl: data.imageUrl,
+                brand: data.brand,
+                model: data.model,
+                year: data.year,
+                fuel: data.fuel,
+                description: data.description,
+                price: data.price,
+                _id: data._id
+            };
+
+            ctx.car = listing;
+
+            if(listing.seller !== sessionStorage.getItem('username')){
+                notify.showInfo('You are not allowed to edit this listing.');
+                ctx.redirect(`#/home`);
+            }
+
+            ctx.loadPartials({
+                navbar: './templates/common/navbar.hbs',
+                footer: './templates/common/footer.hbs',
+                editListingForm: './templates/forms/editListing.hbs'
+            }).then(function () {
+                this.partial('./templates/car/editListingView.hbs');
+            })
+        });
+}
+
+handlers.editListing = function (ctx) {
+    const title = ctx.params.title;
+    const description = ctx.params.description;
+    const brand = ctx.params.brand;
+    const model = ctx.params.model;
+    const year = ctx.params.year;
+    const imageUrl = ctx.params.imageUrl;
+    const fuelType = ctx.params.fuelType;
+    const price = ctx.params.price;
+    const _id = ctx.params._id;
+    const seller = sessionStorage.getItem('username');
+
+    if (title.length < 1 || title.length > 33) {
+        notify.showError('Invalid title!');
+    } else if (description.length < 6 || description.length > 100) {
+        notify.showError('Invalid description!');
+    } else if (brand.length === 0 || fuelType.length === 0 || model.length === 0) {
+        notify.showError('Invalid brand, model or fuel type!');
+    } else {
+        carService.editListing
+        (title, description, brand, model,
+            year, imageUrl, fuelType, price, seller, _id)
+            .then(() => {
+                notify.showInfo('Listing edited successful.');
+                ctx.redirect(`#/details/${_id}`);
+            })
+            .catch(notify.handleError)
+    }
+};
+
+
 

@@ -11,13 +11,15 @@ $(() => {
         this.post('#/login', handlers.loginUser);
         this.get('#/register', handlers.getRegisterView); //registerView get
         this.post('#/register', handlers.registerUser);
+        this.get('#/logout', handlers.logoutUser);
 
         this.get('#/home', handlers.getHomePage); //homePage with listing of cars
 
-        this.get('#/create', handlers.getCreateListingPage); //homePage with listing of cars
+        this.get('#/create', handlers.getCreateListingPage);
         this.post('#/create', handlers.createListing);
-
-        this.get('#/details/:_id', handlers.getListingDetailsPage); //homePage with listing of cars
+        this.get('#/details/:_id', handlers.getListingDetailsPage);
+        this.get('#/edit/:_id', handlers.getEditListingPage);
+        this.post('#/edit', handlers.editListing);
 
         /*
 
