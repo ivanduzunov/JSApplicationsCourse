@@ -1,8 +1,9 @@
+{{> navbar}}
 <div class="my-listings">
     <h1>My car listings</h1>
     <div class="car-listings">
         {{#if noCars}}
-            <p class="no-cars">No cars in database.</p>
+            <p class="no-cars">No your cars in database.</p>
         {{else}}
             {{#each cars}}
                 {{> myListing}}
@@ -10,3 +11,4 @@
         {{/if}}
     </div>
 </div>
+{{> footer}}

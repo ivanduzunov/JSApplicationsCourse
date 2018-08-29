@@ -1,16 +1,16 @@
 <div class="my-listing">
-    <p id="listing-title">Audi a3 много запазено</p>
-    <img src="https://i.imgur.com/drIOsYl.jpg">
+    <p id="listing-title">{{description}}</p>
+    <img src="{{imageUrl}}">
 
     <div class="listing-props">
-        <h2>Brand: Audi</h2>
-        <h3>Model: a3</h3>
-        <h3>Year: 1998</h3>
-        <h3>Price: 2500$</h3>
+        <h2>Brand: {{brand}}</h2>
+        <h3>Model:{{model}}</h3>
+        <h3>Year: {{year}}</h3>
+        <h3>Price: {{price}}$</h3>
     </div>
     <div class="my-listing-buttons">
-        <a href="#" class="my-button-list">Details</a>
-        <a href="#" class="my-button-list">Edit</a>
-        <a href="#" class="my-button-list">Delete</a>
+        <a href="#/details/{{_id}}" class="my-button-list">Details</a>
+        <a href="#/edit/{{_id}}" class="my-button-list">Edit</a>
+        <a href="#/delete/{{_id}}" class="my-button-list">Delete</a>
     </div>
 </div>

@@ -148,5 +148,39 @@ handlers.editListing = function (ctx) {
     }
 };
 
+handlers.getMyListingsPage = async function (ctx) {
+    let username = sessionStorage.getItem('username');
+    ctx.isAuth = authService.isAuth;
+    ctx.username = username;
+    carService.getMyListings(username)
+        .then((data) => {
+            ctx.cars = data;
+            ctx.noCars = data.length === 0;
+            ctx.loadPartials({
+                myListing: './templates/car/myListing.hbs',
+                navbar: './templates/common/navbar.hbs',
+                footer: './templates/common/footer.hbs'
+            }).then(function () {
+                this.partial('./templates/car/myListingsView.hbs');
+            })
+        });
+};
 
+handlers.deleteListing = async function (ctx) {
+    let username = sessionStorage.getItem('username');
+    ctx.isAuth = authService.isAuth;
+    ctx.username = username;
+    let _id = ctx.params._id;
+
+    let conf = confirm("Are you sure?");
+    if (conf) {
+        carService.deleteListing(_id)
+            .then(() => {
+                ctx.redirect('#/home');
+            });
+    } else {
+
+    }
+
+};
 

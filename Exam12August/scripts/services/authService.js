@@ -9,14 +9,14 @@ let authService = (() => {
         sessionStorage.setItem('userId', userData._id);
     }
 
-    function register (username, password) {
-        let obj = { username, password };
+    function register(username, password) {
+        let obj = {username, password};
 
         return remote.post('user', '', 'basic', obj);
     }
 
     function login(username, password) {
-        let obj = { username, password };
+        let obj = {username, password};
 
         return remote.post('user', 'login', 'basic', obj)
     }

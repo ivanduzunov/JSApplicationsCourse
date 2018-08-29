@@ -1,7 +1,11 @@
 let carService = (() => {
-
     function getAllListings() {
         const endpoint = `cars`;
+        return remote.get('appdata', endpoint, 'kinvey');
+    }
+
+    function getMyListings(username) {
+        const endpoint = `cars?query={"seller":"${username}"}&sort={"_kmd.ect": -1}`;
         return remote.get('appdata', endpoint, 'kinvey');
     }
 
@@ -21,6 +25,11 @@ let carService = (() => {
         };
 
         return remote.post('appdata', 'cars', 'kinvey', obj);
+    }
+
+    function deleteListing
+    (id) {
+        return remote.remove('appdata', `cars/${id}`,'kinvey');
     }
 
     function getListingById(_id) {
@@ -53,6 +62,8 @@ let carService = (() => {
         getAllListings,
         createListing,
         getListingById,
-        editListing
+        editListing,
+        getMyListings,
+        deleteListing
     }
 })();

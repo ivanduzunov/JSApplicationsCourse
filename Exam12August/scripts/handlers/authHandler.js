@@ -54,7 +54,7 @@ handlers.registerUser = function (ctx) {
     const password = ctx.params.password;
     const passwordCheck = ctx.params.repeatPass;
 
-    if(username.length < 3 || !/^[a-zA-Z]+$/.test(username)){
+    if (username.length < 3 || !/^[a-zA-Z]+$/.test(username)) {
         notify.showError('Username must be at least 3 chars long and contains only English alphabet letters!');
     } else if (password.length < 6 || !/^[a-zA-Z0-9]+$/.test(password)) {
         notify.showError('Password must be at least 6 chars long and contains only English alphabet letters and digits!');
