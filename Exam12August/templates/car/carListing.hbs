@@ -1,28 +1,27 @@
 <div class="listing">
-    <p>Audi a3 много запазено</p>
-    <img src="https://i.imgur.com/drIOsYl.jpg">
-    <h2>Brand: Audi</h2>
+    <p>{{description}}</p>
+    <img src="{{imageUrl}}">
+    <h2>Brand: {{brand}}</h2>
     <div class="info">
         <div id="data-info">
-            <h3>Seller: kunio</h3>
-            <h3>Fuel: Gasoline</h3>
-            <h3>Year: 1998</h3>
-            <h3>Price: 2500 $</h3>
+            <h3>Seller: {{seller}}</h3>
+            <h3>Fuel: {{fuel}}</h3>
+            <h3>Year: {{year}}</h3>
+            <h3>Price: {{price}} $</h3>
         </div>
         <div id="data-buttons">
             <ul>
                 <li class="action">
-                    <a href="#" class="button-carDetails">Details</a>
+                    <a href="#/details/{{_id}}" class="button-carDetails">Details</a>
                 </li>
                 <li class="action">
-                    <a href="#" class="button-carDetails">edit</a>
+                    <a href="#/edit/{{_id}}" class="button-carDetails">edit</a>
                 </li>
                 <li class="action">
-                    <a href="#" class="button-carDetails">delete</a>
+                    <a href="#/delete/{{_id}}" class="button-carDetails">delete</a>
                 </li>
 
             </ul>
         </div>
     </div>
-
 </div>
