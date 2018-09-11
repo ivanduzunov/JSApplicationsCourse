@@ -1,0 +1,11 @@
+<div class="user-meme">
+    <a href="#/details/{{memeId}}" class="user-meme-title"></a>
+    <a href="#/details/{{memeId}}"> <img class="userProfileImage" src="{{imageUrl}}"></a>
+
+    <div class="user-memes-buttons">
+        {{#if isMe}}
+            <a href="#/edit/{{memeId}}" class="user-meme-btn">Edit</a>
+            <a href="#/delete/{{memeId}}" class="user-meme-btn">Delete</a>
+        {{/if}}
+    </div>
+</div>

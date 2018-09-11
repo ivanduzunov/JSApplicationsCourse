@@ -1,4 +1,4 @@
-/* handlers.getWelcomePage = function (ctx) {
+handlers.getWelcomePage = function (ctx) {
     ctx.isAuth = authService.isAuth;
     ctx.loadPartials({
         navbar: './templates/common/navbar.hbs',
@@ -35,15 +35,15 @@ handlers.loginUser = function (ctx) {
     const password = ctx.params.password;
 
     if (username.length < 3 || !/^[a-zA-Z]+$/.test(username)) {
-        notify.showError('Username must be at least 3 chars long and contains only English alphabet letters!');
+        notify.showError('A username should be at least 3 characters long and should contain only english alphabet letters.');
     } else if (password.length < 6 || !/^[a-zA-Z0-9]+$/.test(password)) {
-        notify.showError('Password must be at least 6 chars long and contains only English alphabet letters and digits!');
+        notify.showError('A user‘s password should be at least 6 characters long and should contain only english alphabet letters and digits.');
     } else {
         authService.login(username, password)
             .then((userData) => {
                 authService.saveSession(userData);
                 notify.showInfo('Login successful.');
-                ctx.redirect('#/home');
+                ctx.redirect('#/feed');
             })
             .catch(notify.handleError);
     }
@@ -53,29 +53,33 @@ handlers.registerUser = function (ctx) {
     const username = ctx.params.username;
     const password = ctx.params.password;
     const passwordCheck = ctx.params.repeatPass;
+    const email = ctx.params.email;
+    const avatarUrl = ctx.params.avatarUrl;
 
     if (username.length < 3 || !/^[a-zA-Z]+$/.test(username)) {
-        notify.showError('Username must be at least 3 chars long and contains only English alphabet letters!');
+        notify.showError('A username should be at least 3 characters long and should contain only english alphabet letters.');
     } else if (password.length < 6 || !/^[a-zA-Z0-9]+$/.test(password)) {
-        notify.showError('Password must be at least 6 chars long and contains only English alphabet letters and digits!');
+        notify.showError('PA user‘s password should be at least 6 characters long and should contain only english alphabet letters and digits.');
     } else if (password !== passwordCheck) {
         notify.showError('Both passwords must match!');
     } else {
-        authService.register(username, password)
+        authService.register(username, password, email, avatarUrl)
             .then((userData) => {
                 authService.saveSession(userData);
                 notify.showInfo('User registration successful.');
-                ctx.redirect('#/login');
+                authService.login(username, password)
+                notify.showInfo('User login successful.');
+                ctx.redirect('#/feed');
             })
             .catch(notify.handleError)
     }
 };
 
-handlers.logoutUser = function (ctx) {
+handlers.logout = function (ctx) {
     authService.logout()
         .then(() => {
             sessionStorage.clear();
             notify.showInfo('Logout successful.');
             ctx.redirect('#/welcome');
         })
-};*/
+};
